@@ -16,7 +16,7 @@ Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "rackspace-monitoring"
   gem.homepage = "http://github.com/racker/rackspace-monitoring-rb"
-  gem.license = "MIT"
+  gem.license = "APACHE"
   gem.summary = %Q{TODO: one-line summary of your gem}
   gem.description = %Q{TODO: longer description of your gem}
   gem.email = "dan@cloudkick.com"
