@@ -11,11 +11,11 @@ module Fog
       recognizes :rackspace_auth_url, :rackspace_servicenet, :persistent
       recognizes :rackspace_auth_token, :rackspace_management_url
 
-      model_path 'rackspace-monitoring/models'
+      model_path 'rackspace-monitoring/monitoring/models'
       model       :entity
       collection  :entities
 
-      request_path 'rackspace-monitoring/requests'
+      request_path 'rackspace-monitoring/monitoring/requests'
       request :list_entities
 
       # TODO: Fill this out
