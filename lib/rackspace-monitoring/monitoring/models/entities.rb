@@ -1,11 +1,9 @@
 require 'fog/core/collection'
+require 'rackspace-monitoring/monitoring/models/entity'
 
 module Fog
-
   module Monitoring
-
     class Rackspace
-
       class Entities < Fog::Collection
 
         model Fog::Monitoring::Rackspace::Entity

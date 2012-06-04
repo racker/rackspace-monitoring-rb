@@ -1,22 +1,20 @@
 require 'fog/core'
-require 'fog/providers'
+require 'fog/rackspace'
 
 module Fog
-
-  module Rackspace
-
-    class Monitoring < Fog::Service
+  module Monitoring
+    class Rackspace < Fog::Service
 
       requires :rackspace_api_key, :rackspace_username
       recognizes :rackspace_auth_url, :rackspace_servicenet, :persistent
       recognizes :rackspace_auth_token, :rackspace_management_url
 
-      model_path 'rackspace-monitoring/monitoring/models'
+      model_path  'rackspace-monitoring/monitoring/models'
       model       :entity
       collection  :entities
 
       request_path 'rackspace-monitoring/monitoring/requests'
-      request :list_entities
+      request      :list_entities
 
       # TODO: Fill this out
       class Mock
@@ -97,11 +95,6 @@ module Fog
           @port   = uri.port
           @scheme = uri.scheme
         end
-
-      end
-
-
-      class Entity
 
       end
     end
