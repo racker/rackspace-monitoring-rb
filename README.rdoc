@@ -1,8 +1,8 @@
-= rackspace-monitoring
+= Rackspace Cloud Monitoring Ruby Bindings
 
-Description goes here.
+This project contains the Ruby bindings for the Rackspace Cloud Monitoring product.
 
-== Contributing to rackspace-monitoring
+== Contributing
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
@@ -14,6 +14,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2012 Dan Di Spaltro. See LICENSE.txt for
-further details.
-
+Copyright (c) 2012 Rackspace Hosting Inc See LICENSE.txt for further details.
