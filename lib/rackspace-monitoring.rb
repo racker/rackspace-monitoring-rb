@@ -1,5 +1,5 @@
 require 'fog/core'
-require 'fog/rackspace'
+require 'fog/providers'
 
 module Fog
 

@@ -1,7 +1,9 @@
 require 'fog/core/model'
 
 module Fog
+
   module Monitoring
+
     class Rackspace
 
       class Entity < Fog::Model
