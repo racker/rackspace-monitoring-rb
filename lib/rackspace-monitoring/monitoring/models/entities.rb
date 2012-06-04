@@ -9,7 +9,7 @@ module Fog
         model Fog::Monitoring::Rackspace::Entity
 
         def all
-          data = connection.list_entities.body['entities']
+          data = connection.list_entities.body['values']
           load(data)
         end
 

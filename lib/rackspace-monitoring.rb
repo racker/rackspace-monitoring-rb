@@ -1,13 +1,16 @@
 require 'fog/core'
 require 'fog/rackspace'
+require 'multi_json'
 
 module Fog
   module Monitoring
     class Rackspace < Fog::Service
 
+      ENDPOINT = 'https://monitoring.api.rackspacecloud.com/v1.0'
+
       requires :rackspace_api_key, :rackspace_username
-      recognizes :rackspace_auth_url, :rackspace_servicenet, :persistent
-      recognizes :rackspace_auth_token, :rackspace_management_url
+      recognizes :rackspace_auth_url, :persistent
+      recognizes :rackspace_auth_token, :rackspace_service_url, :rackspace_account_id
 
       model_path  'rackspace-monitoring/monitoring/models'
       model       :entity
@@ -26,13 +29,12 @@ module Fog
           @rackspace_api_key = options[:rackspace_api_key]
           @rackspace_username = options[:rackspace_username]
           @rackspace_auth_url = options[:rackspace_auth_url]
-          @rackspace_servicenet = options[:rackspace_servicenet]
           @rackspace_auth_token = options[:rackspace_auth_token]
-          @rackspace_management_url = options[:rackspace_management_url]
+          @rackspace_account_id = options[:rackspace_account_id]
+          @rackspace_service_url = options[:rackspace_service_url] || ENDPOINT
           @rackspace_must_reauthenticate = false
           @connection_options = options[:connection_options] || {}
           authenticate
-          Excon.ssl_verify_peer = false if options[:rackspace_servicenet] == true
           @persistent = options[:persistent] || false
           @connection = Fog::Connection.new("#{@scheme}://#{@host}:#{@port}", @persistent, @connection_options)
         end
@@ -49,8 +51,7 @@ module Fog
                 'X-Auth-Token' => @auth_token
               }.merge!(params[:headers] || {}),
               :host     => @host,
-              :path     => "#{@path}/#{params[:path]}",
-              :query    => ('ignore_awful_caching' << Time.now.to_i.to_s)
+              :path     => "#{@path}/#{params[:path]}"
             }))
           rescue Excon::Errors::Unauthorized => error
             if error.response.body != 'Bad username or password' # token expiration
@@ -63,13 +64,13 @@ module Fog
           rescue Excon::Errors::HTTPStatusError => error
             raise case error
             when Excon::Errors::NotFound
-              Fog::Compute::Rackspace::NotFound.slurp(error)
+              Fog::Monitoring::Rackspace::NotFound.slurp(error)
             else
               error
             end
           end
           unless response.body.empty?
-            response.body = Fog::JSON.decode(response.body)
+            response.body = MultiJson.decode(response.body)
           end
           response
         end
@@ -77,7 +78,7 @@ module Fog
         private
 
         def authenticate
-          if @rackspace_must_reauthenticate || @rackspace_auth_token.nil?
+          if @rackspace_must_reauthenticate || @rackspace_auth_token.nil? || @account_id.nil?
             options = {
               :rackspace_api_key  => @rackspace_api_key,
               :rackspace_username => @rackspace_username,
@@ -85,12 +86,13 @@ module Fog
             }
             credentials = Fog::Rackspace.authenticate(options, @connection_options)
             @auth_token = credentials['X-Auth-Token']
-            uri = URI.parse(credentials['X-Server-Management-Url'])
+            @account_id = credentials['X-Server-Management-Url'].match(/.*\/([\d]+)$/)[1]
           else
             @auth_token = @rackspace_auth_token
-            uri = URI.parse(@rackspace_management_url)
+            @account_id = @rackspace_account_id
           end
-          @host   = @rackspace_servicenet == true ? "snet-#{uri.host}" : uri.host
+          uri = URI.parse("#{@rackspace_service_url}/#{@account_id}")
+          @host   = uri.host
           @path   = uri.path
           @port   = uri.port
           @scheme = uri.scheme
