@@ -9,6 +9,8 @@ module Fog
 
         attribute :label
         attribute :metadata
+        attribute :ip_addresses
+        attribute :agent_id
       end
 
     end

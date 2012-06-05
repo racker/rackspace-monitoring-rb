@@ -14,7 +14,7 @@ module Fog
         end
 
         def get(entity_id)
-          data = connection.get_entity(entity_id).body['entity']
+          data = connection.get_entity(entity_id).body
           new(data)
 
         rescue Fog::Monitoring::Rackspace::NotFound
