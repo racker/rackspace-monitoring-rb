@@ -18,6 +18,8 @@ module Fog
 
       request_path 'rackspace-monitoring/monitoring/requests'
       request      :list_entities
+      request      :get_entity
+      request      :create_entity
 
       # TODO: Fill this out
       class Mock
