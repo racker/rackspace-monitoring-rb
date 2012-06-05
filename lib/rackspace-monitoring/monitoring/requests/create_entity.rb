@@ -13,8 +13,8 @@ module Fog
             data['ip_addresses'] = options['ip_addresses']
           end
           request(
-            :body     => Fog::JSON.encode(data),
-            :expects  => [200, 202],
+            :body     => MultiJson.encode(data),
+            :expects  => [201],
             :method   => 'POST',
             :path     => 'entities'
           )

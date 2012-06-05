@@ -11,6 +11,20 @@ module Fog
         attribute :metadata
         attribute :ip_addresses
         attribute :agent_id
+
+        def save
+          raise Fog::Errors::Error.new('Resaving an existing object may create a duplicate') if identity
+          requires :label
+          options = {
+            'metadata'    => metadata,
+            'ip_addresses'=> ip_addresses,
+            'agent_id'    => agent_id
+          }
+          options = options.reject {|key, value| value.nil?}
+          data = connection.create_entity(label, options)
+          true
+        end
+
       end
 
     end
