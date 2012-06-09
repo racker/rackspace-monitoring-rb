@@ -31,11 +31,6 @@ module Fog
       request      :get_alarm
       request      :create_alarm
 
-      # TODO: Fill this out
-      class Mock
-
-      end
-
       class Real
         def initialize(options={})
           @rackspace_api_key = options[:rackspace_api_key]
