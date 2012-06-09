@@ -25,8 +25,15 @@ module Fog
           true
         end
 
+        def checks
+          @checks ||= begin
+            Fog::Monitoring::Rackspace::Checks.new(
+              :entity     => self,
+              :connection => connection
+            )
+          end
+        end
       end
-
     end
   end
 end
