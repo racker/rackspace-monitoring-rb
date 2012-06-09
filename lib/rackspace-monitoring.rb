@@ -23,8 +23,8 @@ module Fog
       request      :get_entity
       request      :create_entity
       request      :list_checks
-      #request      :get_check
-      #request      :create_check
+      request      :get_check
+      request      :create_check
 
       # TODO: Fill this out
       class Mock
