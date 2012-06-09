@@ -12,10 +12,6 @@ module Fog
         end
 
       end
-
-      class Mock
-
-      end
     end
   end
 end

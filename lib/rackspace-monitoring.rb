@@ -15,11 +15,16 @@ module Fog
       model_path  'rackspace-monitoring/monitoring/models'
       model       :entity
       collection  :entities
+      model       :check
+      collection  :checks
 
       request_path 'rackspace-monitoring/monitoring/requests'
       request      :list_entities
       request      :get_entity
       request      :create_entity
+      request      :list_checks
+      request      :get_checks
+      request      :create_check
 
       # TODO: Fill this out
       class Mock
