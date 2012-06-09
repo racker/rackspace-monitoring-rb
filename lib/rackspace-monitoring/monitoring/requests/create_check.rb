@@ -18,7 +18,7 @@ module Fog
         def create_check(entity_id, type, options = {})
           options['type'] = type
           request(
-            :body     => MultiJson.encode(data),
+            :body     => MultiJson.encode(options),
             :expects  => [201],
             :method   => 'POST',
             :path     => "entities/#{entity_id}/checks"

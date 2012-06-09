@@ -20,7 +20,7 @@ module Fog
         attribute :monitoring_zones_poll
 
         def save
-          raise Fog::Errors::Error.new('Resaving an existing object may create a duplicate') if identity
+          raise Fog::Errors::Error.new('Update not implemented yet.') if identity
           requires :type
           options = {
             'label'       => label,

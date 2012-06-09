@@ -13,7 +13,7 @@ module Fog
         attribute :agent_id
 
         def save
-          raise Fog::Errors::Error.new('Resaving an existing object may create a duplicate') if identity
+          raise Fog::Errors::Error.new('Update not implemented yet.') if identity
           requires :label
           options = {
             'metadata'    => metadata,
@@ -28,6 +28,15 @@ module Fog
         def checks
           @checks ||= begin
             Fog::Monitoring::Rackspace::Checks.new(
+              :entity     => self,
+              :connection => connection
+            )
+          end
+        end
+
+        def alarms
+          @alarms ||= begin
+            Fog::Monitoring::Rackspace::Alarms.new(
               :entity     => self,
               :connection => connection
             )

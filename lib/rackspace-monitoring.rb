@@ -17,6 +17,8 @@ module Fog
       collection  :entities
       model       :check
       collection  :checks
+      model       :alarm
+      collection  :alarms
 
       request_path 'rackspace-monitoring/monitoring/requests'
       request      :list_entities
@@ -25,6 +27,9 @@ module Fog
       request      :list_checks
       request      :get_check
       request      :create_check
+      request      :list_alarms
+      request      :get_alarm
+      request      :create_alarm
 
       # TODO: Fill this out
       class Mock
