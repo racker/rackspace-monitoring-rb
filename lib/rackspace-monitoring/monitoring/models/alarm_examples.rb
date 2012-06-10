@@ -1,5 +1,5 @@
 require 'fog/core/collection'
-require 'rackspace-monitoring/monitoring/models/alarm'
+require 'rackspace-monitoring/monitoring/models/alarm_example'
 
 module Fog
   module Monitoring

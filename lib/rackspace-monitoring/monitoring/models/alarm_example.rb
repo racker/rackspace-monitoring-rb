@@ -4,7 +4,7 @@ require 'rackspace-monitoring/monitoring/models/base'
 module Fog
   module Monitoring
     class Rackspace
-      class Alarm < Fog::Monitoring::Rackspace::Base
+      class AlarmExample < Fog::Monitoring::Rackspace::Base
 
         identity :id
 

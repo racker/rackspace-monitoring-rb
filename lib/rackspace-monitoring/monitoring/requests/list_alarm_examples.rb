@@ -3,11 +3,11 @@ module Fog
     class Rackspace
       class Real
 
-        def list_overview
+        def list_alarm_examples
           request(
             :expects  => [200, 203],
             :method   => 'GET',
-            :path     => 'list_alarm_examples'
+            :path     => 'alarm_examples'
           )
         end
 
