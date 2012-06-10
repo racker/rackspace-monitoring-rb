@@ -3,9 +3,17 @@ module Fog
     class Rackspace
       class Real
 
+        # attribute :label
+        # attribute :criteria
+        # attribute :check_type
+        # attribute :check_id
+        # attribute :notification_plan_id
+
 
         def create_alarm(entity_id, notification_plan_id, options = {})
-          options['notification_plan_id'] = notification_plan_id
+          data = {}
+          data['label'] = options['label'] if options['label']
+          data['notification_plan_id'] = notification_plan_id
           request(
             :body     => MultiJson.encode(options),
             :expects  => [201],
