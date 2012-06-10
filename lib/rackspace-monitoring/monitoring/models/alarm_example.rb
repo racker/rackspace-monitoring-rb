@@ -14,6 +14,12 @@ module Fog
         attribute :criteria
         attribute :fields
 
+
+        attribute :bound_criteria
+
+        def bound?
+          !bound_criteria.nil?
+        end
       end
     end
   end

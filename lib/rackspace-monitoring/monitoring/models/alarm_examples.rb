@@ -22,7 +22,7 @@ module Fog
 
         def evaluate(alarm_example_id, options={})
           data = connection.evaluate_alarm_example(alarm_example_id, options).body
-          print data
+          new(data)
         end
 
       end
