@@ -18,8 +18,8 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/racker/rackspace-monitoring-rb"
   gem.license = "APACHE"
   gem.summary = %Q{Rackspace Cloud Monitoring Ruby Bindings}
-  gem.description = %Q{Rackspace Cloud Monitoring Ruby Bindings}
-  gem.email = "dan@cloudkick.com"
+  gem.description = %Q{Rackspace Cloud Monitoring Ruby Bindings, built on top of fog.}
+  gem.email = "dan.dispaltro@gmail.com"
   gem.authors = ["Dan Di Spaltro"]
   # dependencies defined in Gemfile
 end
