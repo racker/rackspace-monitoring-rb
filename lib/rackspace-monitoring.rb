@@ -26,11 +26,12 @@ module Fog
       request      :list_alarms
       request      :list_overview
       request      :get_entity
-      request      :create_entity
       request      :get_check
-      request      :create_check
       request      :get_alarm
+      request      :create_entity
+      request      :create_check
       request      :create_alarm
+      request      :update_entity
 
 
       class Mock
