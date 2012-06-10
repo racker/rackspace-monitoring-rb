@@ -4,10 +4,7 @@ module Fog
       class Real
 
         def create_entity(options = {})
-          data = {}
-          data['label'] = options['label']
-          data['metadata'] = options['metadata']
-          data['ip_addresses'] = options['ip_addresses']
+          data = options.dup
           request(
             :body     => MultiJson.encode(data),
             :expects  => [201],

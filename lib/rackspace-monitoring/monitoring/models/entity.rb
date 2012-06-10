@@ -12,8 +12,10 @@ module Fog
         attribute :metadata
         attribute :ip_addresses
         attribute :agent_id
+        attribute :managed, :default => false
+        attribute :uri
 
-        def save
+        def prep
           options = {
             'label'       => label,
             'metadata'    => metadata,
@@ -21,6 +23,11 @@ module Fog
             'agent_id'    => agent_id
           }
           options = options.reject {|key, value| value.nil?}
+          options
+        end
+
+        def save
+          options = prep
           if identity then
             data = connection.update_entity(identity, options)
           else
@@ -45,6 +52,18 @@ module Fog
               :connection => connection
             )
           end
+        end
+
+        def destroy
+          requires :id
+          connection.delete_entity(id)
+        end
+
+        def compare?(b)
+          a_o = prep
+          b_o = b.prep
+          remain = a_o.reject {|key, value| b_o[key] === value}
+          remain.empty?
         end
       end
     end

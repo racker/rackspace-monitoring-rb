@@ -10,7 +10,7 @@ module Fog
 
         def hash
           attrs = attributes.dup
-          attrs.delete_if {|key, value| [:created_at, :updated_at].include?(key)}
+          attrs.delete_if {|key, value| [:created_at, :updated_at, :id].include?(key)}
           attrs.delete_if {|key, value| value.kind_of?(Base) }
           keys = attrs.keys.map{|sym| sym.to_s}.sort.join ''
           values = attrs.values.map{|sym| sym.to_s}.sort.join ''
