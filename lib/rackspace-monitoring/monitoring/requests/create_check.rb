@@ -3,22 +3,41 @@ module Fog
     class Rackspace
       class Real
 
-        # 
-        #    'label'       => label,
-        #    'metadata'    => metadata,
-        #    'target_alias'=> target_alias,
-        #    'target_resolver' => target_resolver,
-        #    'target_hostname' => target_hostname,
-        #    'period' => period,
-        #    'timeout'=> timeout,
-        #    'details'=> details,
-        #    'monitoring_zones_poll'=> monitoring_zones_poll,
-        #    'disabled'=> disabled
-
         def create_check(entity_id, type, options = {})
-          options['type'] = type
+          data = {}
+          data['type'] = type
+          if options['label'] then
+            data['label'] = options['label']
+          end
+          if options['metadata'] then
+            data['metadata'] = options['metadata']
+          end
+          if options['target_alias'] then
+            data['target_alias'] = options['target_alias']
+          end
+          if options['target_resolver'] then
+            data['target_resolver'] = options['target_resolver']
+          end
+          if options['target_hostname'] then
+            data['target_hostname'] = options['target_hostname']
+          end
+          if options['period'] then
+            data['period'] = options['period']
+          end
+          if options['timeout'] then
+            data['timeout'] = options['timeout']
+          end
+          if options['details'] then
+            data['details'] = options['details']
+          end
+          if options['monitoring_zones_poll'] then
+            data['monitoring_zones_poll'] = options['monitoring_zones_poll']
+          end
+          if options['disabled'] then
+            data['disabled'] = options['disabled']
+          end
           request(
-            :body     => MultiJson.encode(options),
+            :body     => MultiJson.encode(data),
             :expects  => [201],
             :method   => 'POST',
             :path     => "entities/#{entity_id}/checks"
