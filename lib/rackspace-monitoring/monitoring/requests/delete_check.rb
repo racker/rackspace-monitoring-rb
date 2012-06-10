@@ -3,12 +3,11 @@ module Fog
     class Rackspace
       class Real
 
-        def update_entity(id, options)
+        def delete_check(entity_id, check_id)
           request(
-            :body     => MultiJson.encode(options),
             :expects  => [204],
-            :method   => 'PUT',
-            :path     => "entities/#{id}"
+            :method   => 'DELETE',
+            :path     => "entities/#{entity_id}/checks/#{check_id}"
           )
         end
       end

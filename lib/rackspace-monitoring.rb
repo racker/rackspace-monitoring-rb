@@ -21,17 +21,22 @@ module Fog
       collection  :alarms
 
       request_path 'rackspace-monitoring/monitoring/requests'
-      request      :list_entities
-      request      :list_checks
       request      :list_alarms
+      request      :list_checks
+      request      :list_entities
       request      :list_overview
-      request      :get_entity
-      request      :get_check
+
       request      :get_alarm
-      request      :create_entity
-      request      :create_check
+      request      :get_check
+      request      :get_entity
+
       request      :create_alarm
+      request      :create_check
+      request      :create_entity
+
+      request      :update_check
       request      :update_entity
+      request      :delete_check
       request      :delete_entity
 
 

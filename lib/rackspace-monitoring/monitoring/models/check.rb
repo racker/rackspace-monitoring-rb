@@ -8,6 +8,7 @@ module Fog
 
         identity :id
         attribute :entity
+        attribute :entity_id
 
         attribute :label
         attribute :metadata
@@ -21,10 +22,7 @@ module Fog
         attribute :disabled
         attribute :monitoring_zones_poll
 
-        def save
-          raise Fog::Errors::Error.new('Update not implemented yet.') if identity
-          requires :type
-          requires :entity
+        def prep
           options = {
             'label'       => label,
             'metadata'    => metadata,
@@ -38,7 +36,23 @@ module Fog
             'disabled'=> disabled
           }
           options = options.reject {|key, value| value.nil?}
-          data = connection.create_check(entity.identity, type, options)
+          options
+        end
+
+        def save
+          begin
+            requires :entity
+            entity_id = entity.identity
+          rescue
+            requires :entity_id
+          end
+          options = prep
+          if identity then
+            requires :type
+            data = connection.update_check(entity_id, identity, options)
+          else
+            data = connection.create_check(entity_id, options)
+          end
           true
         end
 
