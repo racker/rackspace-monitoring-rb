@@ -4,9 +4,7 @@ require 'rackspace-monitoring/monitoring/models/base'
 module Fog
   module Monitoring
     class Rackspace
-      class Check < Fog::Model
-
-        include Fog::Monitoring::Rackspace::Base
+      class Check < Fog::Monitoring::Rackspace::Base
 
         identity :id
         attribute :entity

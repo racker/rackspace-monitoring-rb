@@ -3,11 +3,17 @@ require 'digest/md5'
 module Fog
   module Monitoring
     class Rackspace
-      module Base
+      class Base < Fog::Model
+
+        attribute :created_at
+        attribute :updated_at
 
         def hash
-          keys = attributes.keys.map{|sym| sym.to_s}.sort.join ''
-          values = attributes.values.map{|sym| sym.to_s}.sort.join ''
+          attrs = attributes.dup
+          attrs.delete_if {|key, value| [:created_at, :updated_at].include?(key)}
+          attrs.delete_if {|key, value| value.kind_of?(Base) }
+          keys = attrs.keys.map{|sym| sym.to_s}.sort.join ''
+          values = attrs.values.map{|sym| sym.to_s}.sort.join ''
           Digest::MD5.hexdigest(keys + values)
         end
       end

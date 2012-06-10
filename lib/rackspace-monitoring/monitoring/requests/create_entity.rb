@@ -3,15 +3,11 @@ module Fog
     class Rackspace
       class Real
 
-        def create_entity(label, options = {})
+        def create_entity(options = {})
           data = {}
-          data['label'] = label
-          if options['metadata']
-            data['metadata'] = options['metadata']
-          end
-          if options['ip_addresses']
-            data['ip_addresses'] = options['ip_addresses']
-          end
+          data['label'] = options['label']
+          data['metadata'] = options['metadata']
+          data['ip_addresses'] = options['ip_addresses']
           request(
             :body     => MultiJson.encode(data),
             :expects  => [201],
