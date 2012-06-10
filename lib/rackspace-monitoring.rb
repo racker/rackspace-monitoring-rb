@@ -19,14 +19,18 @@ module Fog
       collection  :checks
       model       :alarm
       collection  :alarms
+      model       :alarm_example
+      collection  :alarm_examples
 
       request_path 'rackspace-monitoring/monitoring/requests'
       request      :list_alarms
+      request      :list_alarm_examples
       request      :list_checks
       request      :list_entities
       request      :list_overview
 
       request      :get_alarm
+      request      :get_alarm_example
       request      :get_check
       request      :get_entity
 
@@ -36,8 +40,11 @@ module Fog
 
       request      :update_check
       request      :update_entity
+
       request      :delete_check
       request      :delete_entity
+
+      request      :evaluate_alarm_example
 
 
       class Mock
