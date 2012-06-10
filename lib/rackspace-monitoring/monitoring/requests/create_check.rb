@@ -3,9 +3,9 @@ module Fog
     class Rackspace
       class Real
 
-        def create_check(entity_id, type, options = {})
+
+        def process_options(options) 
           data = {}
-          data['type'] = type
           if options['label'] then
             data['label'] = options['label']
           end
@@ -36,6 +36,22 @@ module Fog
           if options['disabled'] then
             data['disabled'] = options['disabled']
           end
+          data
+        end
+
+        def update_check(id, entity_id, options = {})
+          data = process_options options
+          request(
+            :body     => MultiJson.encode(data),
+            :expects  => [201],
+            :method   => 'PUT',
+            :path     => "entities/#{entity_id}/checks/#{id}"
+          )
+        end
+
+        def create_check(entity_id, type, options = {})
+          data = process_options options
+          data['type'] = type
           request(
             :body     => MultiJson.encode(data),
             :expects  => [201],

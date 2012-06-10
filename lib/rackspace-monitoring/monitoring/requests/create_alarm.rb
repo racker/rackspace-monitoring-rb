@@ -13,6 +13,9 @@ module Fog
         def create_alarm(entity_id, notification_plan_id, options = {})
           data = {}
           data['label'] = options['label'] if options['label']
+          data['criteria'] = options['criteria'] if options['criteria']
+          data['check_type'] = options['check_type'] if options['check_type']
+          data['check_id'] = options['check_id'] if options['check_id']
           data['notification_plan_id'] = notification_plan_id
           request(
             :body     => MultiJson.encode(options),

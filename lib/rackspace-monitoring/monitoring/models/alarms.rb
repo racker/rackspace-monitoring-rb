@@ -29,6 +29,11 @@ module Fog
           super({ :entity => entity }.merge!(attributes))
         end
 
+        def create(attributes = {})
+          requires :entity
+          super({ :entity => entity }.merge!(attributes))
+        end
+
       end
     end
   end

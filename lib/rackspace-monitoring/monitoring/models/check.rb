@@ -1,11 +1,15 @@
 require 'fog/core/model'
+require 'rackspace-monitoring/monitoring/models/base'
 
 module Fog
   module Monitoring
     class Rackspace
       class Check < Fog::Model
 
+        include Fog::Monitoring::Rackspace::Base
+
         identity :id
+        attribute :entity
 
         attribute :label
         attribute :metadata
@@ -22,6 +26,7 @@ module Fog
         def save
           raise Fog::Errors::Error.new('Update not implemented yet.') if identity
           requires :type
+          requires :entity
           options = {
             'label'       => label,
             'metadata'    => metadata,
@@ -35,7 +40,7 @@ module Fog
             'disabled'=> disabled
           }
           options = options.reject {|key, value| value.nil?}
-          data = connection.create_check(entity_id, type, options)
+          data = connection.create_check(entity.identity, type, options)
           true
         end
 

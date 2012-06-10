@@ -1,9 +1,12 @@
 require 'fog/core/model'
+require 'rackspace-monitoring/monitoring/models/base'
 
 module Fog
   module Monitoring
     class Rackspace
       class Entity < Fog::Model
+
+        include Fog::Monitoring::Rackspace::Base
 
         identity :id
 

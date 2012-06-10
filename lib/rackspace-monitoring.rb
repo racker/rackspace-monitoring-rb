@@ -22,12 +22,13 @@ module Fog
 
       request_path 'rackspace-monitoring/monitoring/requests'
       request      :list_entities
+      request      :list_checks
+      request      :list_alarms
+      request      :list_overview
       request      :get_entity
       request      :create_entity
-      request      :list_checks
       request      :get_check
       request      :create_check
-      request      :list_alarms
       request      :get_alarm
       request      :create_alarm
 
@@ -56,6 +57,7 @@ module Fog
         end
 
         def request(params)
+          print params
           begin
             response = @connection.request(params.merge({
               :headers  => {

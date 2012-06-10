@@ -1,5 +1,6 @@
 require 'fog/core/collection'
 require 'rackspace-monitoring/monitoring/models/entity'
+require 'rackspace-monitoring/monitoring/models/check'
 
 module Fog
   module Monitoring
@@ -20,6 +21,21 @@ module Fog
           nil
         end
 
+        def overview
+          data = connection.list_overview.body['values']
+          loadAll(data)
+        end
+
+        def loadAll(objects)
+          clear
+          for object in objects
+            en = new(object['entity'])
+            self << en
+            en.checks.load(object['checks'])
+            en.alarms.load(object['alarms'])
+          end
+          self
+        end
       end
     end
   end
