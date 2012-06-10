@@ -32,6 +32,7 @@ module Fog
       request      :create_check
       request      :create_alarm
       request      :update_entity
+      request      :delete_entity
 
 
       class Mock
