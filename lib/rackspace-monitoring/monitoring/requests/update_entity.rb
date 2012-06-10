@@ -10,7 +10,7 @@ module Fog
           data['ip_addresses'] = options['ip_addresses']
           request(
             :body     => MultiJson.encode(data),
-            :expects  => [201],
+            :expects  => [204],
             :method   => 'PUT',
             :path     => "entities/#{entity_id}"
           )
