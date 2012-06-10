@@ -8,6 +8,7 @@ module Fog
         attribute :created_at
         attribute :updated_at
 
+        # Back to drawing board on this one I think
         def hash
           attrs = attributes.dup
           attrs.delete_if {|key, value| [:created_at, :updated_at, :id].include?(key)}
@@ -16,6 +17,14 @@ module Fog
           values = attrs.values.map{|sym| sym.to_s}.sort.join ''
           Digest::MD5.hexdigest(keys + values)
         end
+
+        def compare?(b)
+          a_o = prep
+          b_o = b.prep
+          remain = a_o.reject {|key, value| b_o[key] === value}
+          remain.empty?
+        end
+
       end
     end
   end

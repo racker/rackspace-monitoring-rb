@@ -48,14 +48,21 @@ module Fog
           end
           options = prep
           if identity then
-            requires :type
             data = connection.update_check(entity_id, identity, options)
           else
+            requires :type
+            options['type'] = type
             data = connection.create_check(entity_id, options)
           end
           true
         end
 
+        def compare?(b)
+          a_o = prep
+          b_o = b.prep
+          remain = a_o.reject {|key, value| b_o[key] === value}
+          remain.empty?
+        end
       end
 
     end

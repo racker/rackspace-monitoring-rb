@@ -59,12 +59,6 @@ module Fog
           connection.delete_entity(id)
         end
 
-        def compare?(b)
-          a_o = prep
-          b_o = b.prep
-          remain = a_o.reject {|key, value| b_o[key] === value}
-          remain.empty?
-        end
       end
     end
   end
