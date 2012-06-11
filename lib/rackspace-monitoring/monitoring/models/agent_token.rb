@@ -23,9 +23,9 @@ module Fog
         def save
           options = prep
           if identity then
-            data = connection.update_alarm(identity, options)
+            data = connection.update_agent_token(identity, options)
           else
-            data = connection.create_alarm(options)
+            data = connection.create_agent_token(options)
           end
           true
         end

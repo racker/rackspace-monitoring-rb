@@ -4,8 +4,9 @@ module Fog
       class Real
 
         def create_alarm(entity_id, options = {})
+          data = options.dup
           request(
-            :body     => MultiJson.encode(options),
+            :body     => MultiJson.encode(data),
             :expects  => [201],
             :method   => 'POST',
             :path     => "entities/#{entity_id}/alarms"
