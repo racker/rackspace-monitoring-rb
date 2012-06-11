@@ -25,18 +25,20 @@ module Fog
       collection  :agent_tokens
 
       request_path 'rackspace-monitoring/monitoring/requests'
+      request      :list_agent_tokens
       request      :list_alarms
       request      :list_alarm_examples
-      request      :list_agent_tokens
       request      :list_checks
       request      :list_entities
       request      :list_overview
 
+      request      :get_agent_token
       request      :get_alarm
       request      :get_alarm_example
       request      :get_check
       request      :get_entity
 
+      request      :create_agent_token
       request      :create_alarm
       request      :create_check
       request      :create_entity
