@@ -25,6 +25,17 @@ module Fog
           remain.empty?
         end
 
+        def get_entity_id
+          requires :entity
+          begin
+            requires :entity
+            entity_id = entity.identity
+          rescue
+            requires :entity_id
+          end
+          entity_id
+        end
+
       end
     end
   end

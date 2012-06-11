@@ -8,6 +8,7 @@ module Fog
 
         identity :id
         attribute :entity
+        attribute :entity_id
 
         attribute :label
         attribute :criteria
@@ -15,18 +16,26 @@ module Fog
         attribute :check_id
         attribute :notification_plan_id
 
-        def save
-          raise Fog::Errors::Error.new('Update not implemented yet.') if identity
-          requires :notification_plan_id
-          requires :entity
+        def prep
           options = {
-            'label'       => label,
-            'criteria'    => criteria,
-            'check_type'  => check_type,
-            'check_id'    => check_id,
+            'label'                => label,
+            'criteria'             => criteria,
+            'notification_plan_id' => notification_plan_id,
           }
           options = options.reject {|key, value| value.nil?}
-          data = connection.create_alarm(entity.identity, notification_plan_id, options)
+          options
+        end
+
+        def save
+          requires :notification_plan_id
+          options = prep
+          if identity then
+            data = connection.update_alarm(get_entity_id, identity, options)
+          else
+            options['check_type'] = check_type if check_type
+            options['check_id'] = check_id if check_id
+            data = connection.create_alarm(get_entity_id, options)
+          end
           true
         end
 

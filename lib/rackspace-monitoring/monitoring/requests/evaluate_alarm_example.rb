@@ -4,6 +4,7 @@ module Fog
       class Real
 
         def evaluate_alarm_example(id, options = {})
+          options ||= {}
           data = {:values => options.dup}
           request(
             :body     => MultiJson.encode(data),
