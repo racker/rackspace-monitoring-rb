@@ -3,7 +3,7 @@ module Fog
     class Rackspace
       class Real
 
-        def create_agent_tokens(options = {})
+        def create_agent_token(options = {})
           data = options.dup
           request(
             :body     => MultiJson.encode(data),
