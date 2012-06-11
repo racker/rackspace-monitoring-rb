@@ -21,10 +21,13 @@ module Fog
       collection  :alarms
       model       :alarm_example
       collection  :alarm_examples
+      model       :agent_token
+      collection  :agent_tokens
 
       request_path 'rackspace-monitoring/monitoring/requests'
       request      :list_alarms
       request      :list_alarm_examples
+      request      :list_agent_tokens
       request      :list_checks
       request      :list_entities
       request      :list_overview
