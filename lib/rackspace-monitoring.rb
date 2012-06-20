@@ -1,6 +1,6 @@
 require 'fog/core'
 require 'fog/rackspace'
-require 'multi_json'
+require 'json'
 
 module Fog
   module Monitoring
@@ -103,7 +103,7 @@ module Fog
             end
           end
           unless response.body.empty?
-            response.body = MultiJson.decode(response.body)
+            response.body = JSON.parse(response.body)
           end
           response
         end
