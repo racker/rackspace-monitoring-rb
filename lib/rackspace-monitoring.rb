@@ -1,3 +1,4 @@
+require 'fog'
 require 'fog/core'
 require 'json'
 
