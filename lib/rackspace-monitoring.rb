@@ -117,7 +117,7 @@ module Fog
               :rackspace_username => @rackspace_username,
               :rackspace_auth_url => @rackspace_auth_url
             }
-            credentials = Fog::Rackspace.authenticate(options, @connection_options)
+            credentials = Fog::Rackspace.authenticate(options)
             @auth_token = credentials['X-Auth-Token']
             @account_id = credentials['X-Server-Management-Url'].match(/.*\/([\d]+)$/)[1]
           else
