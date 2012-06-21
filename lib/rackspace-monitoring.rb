@@ -1,5 +1,4 @@
 require 'fog/core'
-require 'fog/rackspace'
 require 'json'
 
 module Fog
