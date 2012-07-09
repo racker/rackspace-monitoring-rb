@@ -76,7 +76,6 @@ module Fog
         end
 
         def request(params)
-          print params
           begin
             response = @connection.request(params.merge({
               :headers  => {
