@@ -9,7 +9,7 @@ module Fog
       ENDPOINT = 'https://monitoring.api.rackspacecloud.com/v1.0'
 
       requires :rackspace_api_key, :rackspace_username
-      recognizes :rackspace_auth_url, :persistent
+      recognizes :rackspace_auth_url, :persistent, :raise_errors
       recognizes :rackspace_auth_token, :rackspace_service_url, :rackspace_account_id
 
       model_path  'rackspace-monitoring/monitoring/models'
