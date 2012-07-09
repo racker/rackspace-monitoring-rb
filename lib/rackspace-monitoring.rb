@@ -83,6 +83,14 @@ module Fog
           @connection.reset
         end
 
+        def raise_error(error)
+          if @raise_errors
+            raise error
+          else
+            print "Error occurred: " + error.message
+          end
+        end
+
         def request(params)
           begin
             begin
@@ -115,11 +123,7 @@ module Fog
             end
             response
           rescue Exception => error
-            if @raise_errors
-              raise error
-            else
-              print "Error occurred: " + error.message
-            end
+            raise_error(error)
           end
         end
 
@@ -132,7 +136,14 @@ module Fog
               :rackspace_username => @rackspace_username,
               :rackspace_auth_url => @rackspace_auth_url
             }
-            credentials = Fog::Rackspace.authenticate(options)
+
+            begin
+              credentials = Fog::Rackspace.authenticate(options)
+            rescue Exception => error
+              raise_error(error)
+              return
+            end
+
             @auth_token = credentials['X-Auth-Token']
             @account_id = credentials['X-Server-Management-Url'].match(/.*\/([\d]+)$/)[1]
           else
