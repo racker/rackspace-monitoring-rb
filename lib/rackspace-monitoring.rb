@@ -68,6 +68,7 @@ module Fog
           @connection_options = options[:connection_options] || {}
           authenticate
           @persistent = options[:persistent] || false
+          @ignore_errors = options[:ignore_errors] || false
           @connection = Fog::Connection.new("#{@scheme}://#{@host}:#{@port}", @persistent, @connection_options)
         end
 
@@ -77,34 +78,42 @@ module Fog
 
         def request(params)
           begin
-            response = @connection.request(params.merge({
-              :headers  => {
-                'Content-Type' => 'application/json',
-                'X-Auth-Token' => @auth_token
-              }.merge!(params[:headers] || {}),
-              :host     => @host,
-              :path     => "#{@path}/#{params[:path]}"
-            }))
-          rescue Excon::Errors::Unauthorized => error
-            if error.response.body != 'Bad username or password' # token expiration
-              @rackspace_must_reauthenticate = true
-              authenticate
-              retry
-            else # bad credentials
+            begin
+              response = @connection.request(params.merge({
+                :headers  => {
+                  'Content-Type' => 'application/json',
+                  'X-Auth-Token' => @auth_token
+                }.merge!(params[:headers] || {}),
+                :host     => @host,
+                :path     => "#{@path}/#{params[:path]}"
+              }))
+            rescue Excon::Errors::Unauthorized => error
+              if error.response.body != 'Bad username or password' # token expiration
+                @rackspace_must_reauthenticate = true
+                authenticate
+                retry
+              else # bad credentials
+                raise error
+              end
+            rescue Excon::Errors::HTTPStatusError => error
+              raise case error
+              when Excon::Errors::NotFound
+                Fog::Monitoring::Rackspace::NotFound.slurp(error)
+              else
+                error
+              end
+            end
+            unless response.body.empty?
+              response.body = JSON.parse(response.body)
+            end
+            response
+          rescue Exception => error
+            if @ignore_errors
+              print "Error occurred: " + error.message
+            else
               raise error
             end
-          rescue Excon::Errors::HTTPStatusError => error
-            raise case error
-            when Excon::Errors::NotFound
-              Fog::Monitoring::Rackspace::NotFound.slurp(error)
-            else
-              error
-            end
           end
-          unless response.body.empty?
-            response.body = JSON.parse(response.body)
-          end
-          response
         end
 
         private
