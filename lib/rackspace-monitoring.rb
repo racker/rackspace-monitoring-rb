@@ -66,9 +66,16 @@ module Fog
           @rackspace_service_url = options[:rackspace_service_url] || ENDPOINT
           @rackspace_must_reauthenticate = false
           @connection_options = options[:connection_options] || {}
+
+          if options.has_key("raise_errors")
+              @raise_errors = options[:raise_errors]
+          else
+              @raise_errors = true
+          end
+
           authenticate
           @persistent = options[:persistent] || false
-          @ignore_errors = options[:ignore_errors] || false
+
           @connection = Fog::Connection.new("#{@scheme}://#{@host}:#{@port}", @persistent, @connection_options)
         end
 
@@ -108,10 +115,10 @@ module Fog
             end
             response
           rescue Exception => error
-            if @ignore_errors
-              print "Error occurred: " + error.message
-            else
+            if @raise_errors
               raise error
+            else
+              print "Error occurred: " + error.message
             end
           end
         end
