@@ -1,6 +1,5 @@
 require 'fog'
 require 'fog/core'
-require 'json'
 
 module Fog
   module Monitoring
@@ -119,7 +118,7 @@ module Fog
               end
             end
             unless response.body.empty?
-              response.body = JSON.parse(response.body)
+              response.body = JSON.decode(response.body)
             end
             response
           rescue Exception => error
