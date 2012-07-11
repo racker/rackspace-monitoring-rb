@@ -1,4 +1,4 @@
-require 'fog'
+require 'rackspace-fog'
 require 'rackspace-fog/core'
 
 module Fog
