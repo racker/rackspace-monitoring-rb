@@ -67,15 +67,24 @@ module Fog
           @connection_options = options[:connection_options] || {}
 
           if options.has_key?("raise_errors")
-              @raise_errors = options[:raise_errors]
+            @raise_errors = options[:raise_errors]
           else
-              @raise_errors = true
+            @raise_errors = true
           end
 
-          authenticate
+          begin
+            authenticate
+          rescue Exception => error
+            raise_error(error)
+          end
+
           @persistent = options[:persistent] || false
 
-          @connection = Fog::Connection.new("#{@scheme}://#{@host}:#{@port}", @persistent, @connection_options)
+          begin
+            @connection = Fog::Connection.new("#{@scheme}://#{@host}:#{@port}", @persistent, @connection_options)
+          rescue Exception => error
+            raise_error(error)
+          end
         end
 
         def reload
