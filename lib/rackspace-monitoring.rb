@@ -66,7 +66,7 @@ module Fog
           @rackspace_must_reauthenticate = false
           @connection_options = options[:connection_options] || {}
 
-          if options.has_key?("raise_errors")
+          if options.has_key?(:raise_errors)
             @raise_errors = options[:raise_errors]
           else
             @raise_errors = true
