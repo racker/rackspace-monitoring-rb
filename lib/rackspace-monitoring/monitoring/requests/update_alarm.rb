@@ -3,7 +3,7 @@ module Fog
     class Rackspace
       class Real
 
-        def update_alarms(entity_id, id, options)
+        def update_alarm(entity_id, id, options)
           request(
             :body     => JSON.encode(options),
             :expects  => [204],
