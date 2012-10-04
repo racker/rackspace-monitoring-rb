@@ -44,6 +44,7 @@ module Fog
 
       request      :update_check
       request      :update_entity
+      request      :update_alarm
 
       request      :delete_check
       request      :delete_entity
