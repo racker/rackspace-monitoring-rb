@@ -42,6 +42,7 @@ module Fog
       request      :create_check
       request      :create_entity
 
+      request      :update_agent_token
       request      :update_check
       request      :update_entity
       request      :update_alarm
