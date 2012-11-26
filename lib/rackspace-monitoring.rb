@@ -1,5 +1,5 @@
-require 'fog/core'
-require 'json'
+require 'rackspace-fog'
+require 'rackspace-fog/core'
 
 module Fog
   module Monitoring
@@ -8,7 +8,7 @@ module Fog
       ENDPOINT = 'https://monitoring.api.rackspacecloud.com/v1.0'
 
       requires :rackspace_api_key, :rackspace_username
-      recognizes :rackspace_auth_url, :persistent
+      recognizes :rackspace_auth_url, :persistent, :raise_errors
       recognizes :rackspace_auth_token, :rackspace_service_url, :rackspace_account_id
 
       model_path  'rackspace-monitoring/monitoring/models'
@@ -44,6 +44,7 @@ module Fog
 
       request      :update_check
       request      :update_entity
+      request      :update_alarm
 
       request      :delete_check
       request      :delete_entity
@@ -65,46 +66,74 @@ module Fog
           @rackspace_service_url = options[:rackspace_service_url] || ENDPOINT
           @rackspace_must_reauthenticate = false
           @connection_options = options[:connection_options] || {}
-          authenticate
+
+          if options.has_key?(:raise_errors)
+            @raise_errors = options[:raise_errors]
+          else
+            @raise_errors = true
+          end
+
+          begin
+            authenticate
+          rescue Exception => error
+            raise_error(error)
+          end
+
           @persistent = options[:persistent] || false
-          @connection = Fog::Connection.new("#{@scheme}://#{@host}:#{@port}", @persistent, @connection_options)
+
+          begin
+            @connection = Fog::Connection.new("#{@scheme}://#{@host}:#{@port}", @persistent, @connection_options)
+          rescue Exception => error
+            raise_error(error)
+          end
         end
 
         def reload
           @connection.reset
         end
 
+        def raise_error(error)
+          if @raise_errors
+            raise error
+          else
+            print "Error occurred: " + error.message
+          end
+        end
+
         def request(params)
-          print params
           begin
-            response = @connection.request(params.merge({
-              :headers  => {
-                'Content-Type' => 'application/json',
-                'X-Auth-Token' => @auth_token
-              }.merge!(params[:headers] || {}),
-              :host     => @host,
-              :path     => "#{@path}/#{params[:path]}"
-            }))
-          rescue Excon::Errors::Unauthorized => error
-            if error.response.body != 'Bad username or password' # token expiration
-              @rackspace_must_reauthenticate = true
-              authenticate
-              retry
-            else # bad credentials
-              raise error
+            begin
+              response = @connection.request(params.merge({
+                :headers  => {
+                  'Content-Type' => 'application/json',
+                  'X-Auth-Token' => @auth_token
+                }.merge!(params[:headers] || {}),
+                :host     => @host,
+                :path     => "#{@path}/#{params[:path]}"
+              }))
+            rescue Excon::Errors::Unauthorized => error
+              if error.response.body != 'Bad username or password' # token expiration
+                @rackspace_must_reauthenticate = true
+                authenticate
+                retry
+              else # bad credentials
+                raise error
+              end
+            rescue Excon::Errors::HTTPStatusError => error
+              raise case error
+              when Excon::Errors::NotFound
+                Fog::Monitoring::Rackspace::NotFound.slurp(error)
+              else
+                error
+              end
             end
-          rescue Excon::Errors::HTTPStatusError => error
-            raise case error
-            when Excon::Errors::NotFound
-              Fog::Monitoring::Rackspace::NotFound.slurp(error)
-            else
-              error
+            unless response.body.empty?
+              response.body = JSON.decode(response.body)
             end
+            response
+          rescue Exception => error
+            raise_error(error)
           end
-          unless response.body.empty?
-            response.body = JSON.parse(response.body)
-          end
-          response
         end
 
         private
@@ -116,7 +145,14 @@ module Fog
               :rackspace_username => @rackspace_username,
               :rackspace_auth_url => @rackspace_auth_url
             }
-            credentials = Fog::Rackspace.authenticate(options, @connection_options)
+
+            begin
+              credentials = Fog::Rackspace.authenticate(options)
+            rescue Exception => error
+              raise_error(error)
+              return
+            end
+
             @auth_token = credentials['X-Auth-Token']
             @account_id = credentials['X-Server-Management-Url'].match(/.*\/([\d]+)$/)[1]
           else

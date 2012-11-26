@@ -5,7 +5,7 @@ module Fog
 
         def update_entity(id, options)
           request(
-            :body     => JSON.generate(options),
+            :body     => JSON.encode(options),
             :expects  => [204],
             :method   => 'PUT',
             :path     => "entities/#{id}"

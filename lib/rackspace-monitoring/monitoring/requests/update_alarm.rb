@@ -3,12 +3,12 @@ module Fog
     class Rackspace
       class Real
 
-        def update_check(entity_id, id, options)
+        def update_alarm(entity_id, id, options)
           request(
             :body     => JSON.encode(options),
             :expects  => [204],
             :method   => 'PUT',
-            :path     => "entities/#{entity_id}/checks/#{id}"
+            :path     => "entities/#{entity_id}/alarms/#{id}"
           )
         end
       end

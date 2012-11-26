@@ -6,7 +6,7 @@ module Fog
         def create_entity(options = {})
           data = options.dup
           request(
-            :body     => JSON.generate(data),
+            :body     => JSON.encode(data),
             :expects  => [201],
             :method   => 'POST',
             :path     => 'entities'
