@@ -1,6 +1,6 @@
 = Rackspace Cloud Monitoring Ruby Bindings
 
-This project contains the Ruby bindings for the Rackspace Cloud Monitoring product.  It is based off the most awesome Fog cloud services library here - https://github.com/fog/fog.  This library is used heavily in the https://github.com/racker/cookbooks/tree/master/cloud_monitoring chef cookbook.
+This project contains the Ruby bindings for the Rackspace Cloud Monitoring product.  It is based off the most awesome Fog cloud services library here - https://github.com/fog/fog.  This library is used heavily in the https://github.com/racker/cookbook-cloudmonitoring chef cookbook.
 
 == Contributing
  
