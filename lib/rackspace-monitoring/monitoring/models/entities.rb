@@ -22,8 +22,14 @@ module Fog
         end
 
         def overview
-          data = connection.list_overview.body['values']
-          loadAll(data)
+          entities = []
+          opts = {}
+          begin
+            new_entities = connection.list_overview(opts)
+            entities.concat(new_entities.body['values'])
+            opts = {:marker => new_entities.body['metadata']['next_marker']}
+          end while(new_entities.body['metadata']['count'] == 100)
+          loadAll(entities)
         end
 
         def loadAll(objects)
