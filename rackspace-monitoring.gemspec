@@ -56,6 +56,7 @@ Gem::Specification.new do |s|
     "lib/rackspace-monitoring/monitoring/requests/update_alarm.rb",
     "lib/rackspace-monitoring/monitoring/requests/update_check.rb",
     "lib/rackspace-monitoring/monitoring/requests/update_entity.rb",
+    "rackspace-monitoring.gemspec",
     "test/helper.rb",
     "test/test_rackspace-monitoring.rb"
   ]
