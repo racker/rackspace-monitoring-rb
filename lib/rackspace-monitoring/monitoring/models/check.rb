@@ -57,6 +57,15 @@ module Fog
           true
         end
 
+        def metrics
+          @metrics ||= begin
+            Fog::Monitoring::Rackspace::Metrics.new(
+              :check      => self,
+              :connection => connection
+            )
+          end
+        end
+
       end
 
     end
