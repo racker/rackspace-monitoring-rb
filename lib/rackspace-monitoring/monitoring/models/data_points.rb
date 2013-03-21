@@ -14,6 +14,18 @@ module Fog
           self.fetch(:resolution => :full)
         end
 
+        # Fetch the datapoints for a metric
+        # ==== Parameters
+        #
+        # * options<~Hash> - optional paramaters
+        #   * from<~Integer> - timestamp in milliseconds
+        #   * to<~Integer> - timestamp in milliseconds
+        #   * points<~Integer> - Number of points to fetch
+        #   * resolution<~String> - Should be one of :full, :min5, :min20, :min60, :min240, :min1440
+        #   * select<~Array> - Should be an array of :average, :max, :min, :variance
+        #
+        # ==== Returns
+        # * datapoints<~Fog::Monitoring::Rackspace::Datapoints>:
         def fetch(options={})
           requires :metric
           options[:from] ||= (Time.now.to_i * 1000) - (3600 * 1000)
