@@ -11,7 +11,7 @@ module Fog
         model Fog::Monitoring::Rackspace::DataPoint
 
         def all
-          self.fetch(:resolution => "FULL")
+          self.fetch(:resolution => :full)
         end
 
         def fetch(options={})
@@ -19,6 +19,9 @@ module Fog
           options[:from] ||= (Time.now.to_i * 1000) - (3600 * 1000)
           options[:to] ||= Time.now.to_i * 1000
           options[:points] ||= 1 unless options[:resolution]
+          if options[:resolution]
+            options[:resolution] = options[:resolution].upcase
+          end
           data = connection.list_data_points(metric.check.entity.id, metric.check.id, metric.name, options).body['values']
           load(data)
         end
