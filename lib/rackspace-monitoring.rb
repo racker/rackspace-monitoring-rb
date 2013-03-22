@@ -22,6 +22,10 @@ module Fog
       collection  :alarm_examples
       model       :agent_token
       collection  :agent_tokens
+      model       :metric
+      collection  :metrics
+      model       :data_point
+      collection  :data_points
 
       request_path 'rackspace-monitoring/monitoring/requests'
       request      :list_agent_tokens
@@ -29,6 +33,8 @@ module Fog
       request      :list_alarm_examples
       request      :list_checks
       request      :list_entities
+      request      :list_metrics
+      request      :list_data_points
       request      :list_overview
 
       request      :get_agent_token
