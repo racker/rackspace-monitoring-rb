@@ -26,6 +26,8 @@ module Fog
       collection  :metrics
       model       :data_point
       collection  :data_points
+      model       :check_type
+      collection  :check_types
 
       request_path 'rackspace-monitoring/monitoring/requests'
       request      :list_agent_tokens
@@ -35,6 +37,7 @@ module Fog
       request      :list_entities
       request      :list_metrics
       request      :list_data_points
+      request      :list_check_types
       request      :list_overview
 
       request      :get_agent_token
