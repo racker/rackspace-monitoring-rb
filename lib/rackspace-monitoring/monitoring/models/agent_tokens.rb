@@ -11,11 +11,11 @@ module Fog
         def all
           data = []
           opts = {}
-          begin
+          do
             new_tokens = connection.list_agent_tokens(opts)
             data.concat(new_tokens.body['values'])
             opts = {:marker => new_tokens.body['metadata']['next_marker']}
-          end while(!opts[:marker].nil?)
+          until opts[:marker].nil?
           
           load(data)
         end
