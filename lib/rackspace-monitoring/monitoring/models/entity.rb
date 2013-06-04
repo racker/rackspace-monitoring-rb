@@ -1,4 +1,4 @@
-require 'rackspace-fog/core/model'
+require 'fog/core/model'
 require 'rackspace-monitoring/monitoring/models/base'
 
 module Fog

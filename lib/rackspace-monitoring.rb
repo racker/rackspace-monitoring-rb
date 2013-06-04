@@ -1,5 +1,5 @@
-require 'rackspace-fog'
-require 'rackspace-fog/core'
+require 'fog'
+require 'fog/core'
 
 module Fog
   module Monitoring

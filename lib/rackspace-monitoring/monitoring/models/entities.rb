@@ -1,4 +1,4 @@
-require 'rackspace-fog/core/collection'
+require 'fog/core/collection'
 require 'rackspace-monitoring/monitoring/models/entity'
 require 'rackspace-monitoring/monitoring/models/check'
 
