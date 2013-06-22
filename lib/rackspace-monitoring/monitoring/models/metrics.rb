@@ -12,7 +12,7 @@ module Fog
 
         def all
           requires :check
-          data = connection.list_metrics(check.entity.id, check.id).body['values']
+          data = service.list_metrics(check.entity.id, check.id).body['values']
           load(data)
         end
 

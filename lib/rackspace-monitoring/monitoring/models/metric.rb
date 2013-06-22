@@ -13,7 +13,7 @@ module Fog
           @datapoints ||= begin
             Fog::Monitoring::Rackspace::DataPoints.new(
               :metric        => self,
-              :connection    => connection
+              :service       => service
             )
           end
         end

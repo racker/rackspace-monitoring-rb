@@ -2,6 +2,18 @@
 
 This project contains the Ruby bindings for the Rackspace Cloud Monitoring product.  It is based off the most awesome Fog cloud services library here - https://github.com/fog/fog.  This library is used heavily in the https://github.com/racker/cookbook-cloudmonitoring chef cookbook.
 
+# Example Code
+
+Below is an example to list entities on your account:
+
+```ruby
+require 'rackspace-monitoring'
+
+monitoring = Fog::Monitoring::Rackspace.new(:rackspace_api_key => '<API-KEY>', :rackspace_username => '<USERNAME>')
+print monitoring.entities.overview
+
+```
+
 # Contributing
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
@@ -11,6 +23,7 @@ This project contains the Ruby bindings for the Rackspace Cloud Monitoring produ
 * Commit and push until you are happy with your contribution.
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
 
 # Publish a New Version
 

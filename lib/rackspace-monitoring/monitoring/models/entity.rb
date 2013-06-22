@@ -29,9 +29,9 @@ module Fog
         def save
           options = prep
           if identity then
-            data = connection.update_entity(identity, options)
+            data = service.update_entity(identity, options)
           else
-            data = connection.create_entity(options)
+            data = service.create_entity(options)
           end
           true
         end
@@ -40,7 +40,7 @@ module Fog
           @checks ||= begin
             Fog::Monitoring::Rackspace::Checks.new(
               :entity     => self,
-              :connection => connection
+              :service => service
             )
           end
         end
@@ -49,14 +49,14 @@ module Fog
           @alarms ||= begin
             Fog::Monitoring::Rackspace::Alarms.new(
               :entity     => self,
-              :connection => connection
+              :service => service
             )
           end
         end
 
         def destroy
           requires :id
-          connection.delete_entity(id)
+          service.delete_entity(id)
         end
 
       end

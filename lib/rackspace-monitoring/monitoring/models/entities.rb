@@ -10,12 +10,12 @@ module Fog
         model Fog::Monitoring::Rackspace::Entity
 
         def all
-          data = connection.list_entities.body['values']
+          data = service.list_entities.body['values']
           load(data)
         end
 
         def get(entity_id)
-          data = connection.get_entity(entity_id).body
+          data = service.get_entity(entity_id).body
           new(data)
         rescue Fog::Monitoring::Rackspace::NotFound
           nil
@@ -25,7 +25,7 @@ module Fog
           entities = []
           opts = {}
           begin
-            new_entities = connection.list_overview(opts)
+            new_entities = service.list_overview(opts)
             entities.concat(new_entities.body['values'])
             opts = {:marker => new_entities.body['metadata']['next_marker']}
           end while(!opts[:marker].nil?)

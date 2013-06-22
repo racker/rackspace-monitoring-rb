@@ -12,13 +12,13 @@ module Fog
 
         def all
           requires :entity
-          data = connection.list_alarms(entity.identity).body['values']
+          data = service.list_alarms(entity.identity).body['values']
           load(data)
         end
 
         def get(alarm_id)
           requires :entity
-          data = connection.get_alarm(entity.identity, alarm_id).body
+          data = service.get_alarm(entity.identity, alarm_id).body
           new(data)
         rescue Fog::Monitoring::Rackspace::NotFound
           nil

@@ -48,11 +48,11 @@ module Fog
           end
           options = prep
           if identity then
-            data = connection.update_check(entity_id, identity, options)
+            data = service.update_check(entity_id, identity, options)
           else
             requires :type
             options['type'] = type
-            data = connection.create_check(entity_id, options)
+            data = service.create_check(entity_id, options)
           end
           true
         end
@@ -61,7 +61,7 @@ module Fog
           @metrics ||= begin
             Fog::Monitoring::Rackspace::Metrics.new(
               :check      => self,
-              :connection => connection
+              :service => service
             )
           end
         end

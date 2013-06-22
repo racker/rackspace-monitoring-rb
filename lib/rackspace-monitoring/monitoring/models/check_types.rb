@@ -9,7 +9,7 @@ module Fog
         model Fog::Monitoring::Rackspace::CheckType
 
         def all
-          data = connection.list_check_types.body['values']
+          data = service.list_check_types.body['values']
           load(data)
         end
 
