@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dan Di Spaltro"]
-  s.date = "2013-06-04"
+  s.date = "2013-06-22"
   s.description = "Rackspace Cloud Monitoring Ruby Bindings, built on top of fog."
   s.email = "dan.dispaltro@gmail.com"
   s.extra_rdoc_files = [
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.md",
     "Rakefile",
@@ -72,27 +73,27 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/racker/rackspace-monitoring-rb"
   s.licenses = ["APACHE"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.25"
+  s.rubygems_version = "1.8.24"
   s.summary = "Rackspace Cloud Monitoring Ruby Bindings"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<fog>, ["= 1.11.1"])
+      s.add_runtime_dependency(%q<fog>, [">= 1.11.1"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.3"])
     else
-      s.add_dependency(%q<fog>, ["= 1.11.1"])
+      s.add_dependency(%q<fog>, [">= 1.11.1"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.3"])
     end
   else
-    s.add_dependency(%q<fog>, ["= 1.11.1"])
+    s.add_dependency(%q<fog>, [">= 1.11.1"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, [">= 1.0.0"])

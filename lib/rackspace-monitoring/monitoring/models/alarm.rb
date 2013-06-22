@@ -1,4 +1,4 @@
-require 'rackspace-fog/core/model'
+require 'fog/core/model'
 require 'rackspace-monitoring/monitoring/models/base'
 
 module Fog
@@ -30,11 +30,11 @@ module Fog
           requires :notification_plan_id
           options = prep
           if identity then
-            data = connection.update_alarm(get_entity_id, identity, options)
+            data = service.update_alarm(get_entity_id, identity, options)
           else
             options['check_type'] = check_type if check_type
             options['check_id'] = check_id if check_id
-            data = connection.create_alarm(get_entity_id, options)
+            data = service.create_alarm(get_entity_id, options)
           end
           true
         end

@@ -1,4 +1,4 @@
-require 'rackspace-fog/core/model'
+require 'fog/core/model'
 require 'rackspace-monitoring/monitoring/models/base'
 
 module Fog
@@ -23,9 +23,9 @@ module Fog
         def save
           options = prep
           if identity then
-            data = connection.update_agent_token(identity, options)
+            data = service.update_agent_token(identity, options)
           else
-            data = connection.create_agent_token(options)
+            data = service.create_agent_token(options)
           end
           true
         end

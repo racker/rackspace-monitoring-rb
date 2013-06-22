@@ -1,4 +1,4 @@
-require 'rackspace-fog/core/model'
+require 'fog/core/model'
 require 'rackspace-monitoring/monitoring/models/base'
 
 module Fog
@@ -13,7 +13,7 @@ module Fog
           @datapoints ||= begin
             Fog::Monitoring::Rackspace::DataPoints.new(
               :metric        => self,
-              :connection    => connection
+              :service       => service
             )
           end
         end

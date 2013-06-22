@@ -1,4 +1,4 @@
-require 'rackspace-fog/core/collection'
+require 'fog/core/collection'
 require 'rackspace-monitoring/monitoring/models/data_point'
 
 module Fog
@@ -34,7 +34,7 @@ module Fog
           if options[:resolution]
             options[:resolution] = options[:resolution].upcase
           end
-          data = connection.list_data_points(metric.check.entity.id, metric.check.id, metric.name, options).body['values']
+          data = service.list_data_points(metric.check.entity.id, metric.check.id, metric.name, options).body['values']
           load(data)
         end
 

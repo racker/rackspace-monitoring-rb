@@ -1,4 +1,4 @@
-require 'rackspace-fog/core/collection'
+require 'fog/core/collection'
 require 'rackspace-monitoring/monitoring/models/agent_token'
 
 module Fog
@@ -12,7 +12,7 @@ module Fog
           data = []
           opts = {}
           begin
-            new_tokens = connection.list_agent_tokens(opts)
+            new_tokens = service.list_agent_tokens(opts)
             data.concat(new_tokens.body['values'])
             opts = {:marker => new_tokens.body['metadata']['next_marker']}
           end until opts[:marker].nil?
@@ -21,7 +21,7 @@ module Fog
         end
 
         def get(id)
-          data = connection.get_agent_token(id).body
+          data = service.get_agent_token(id).body
           new(data)
         rescue Fog::Monitoring::Rackspace::NotFound
           nil

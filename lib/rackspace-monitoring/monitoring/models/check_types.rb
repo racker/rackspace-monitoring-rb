@@ -1,4 +1,4 @@
-require 'rackspace-fog/core/collection'
+require 'fog/core/collection'
 require 'rackspace-monitoring/monitoring/models/check_type'
 
 module Fog
@@ -9,7 +9,7 @@ module Fog
         model Fog::Monitoring::Rackspace::CheckType
 
         def all
-          data = connection.list_check_types.body['values']
+          data = service.list_check_types.body['values']
           load(data)
         end
 
