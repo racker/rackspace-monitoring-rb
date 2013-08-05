@@ -32,7 +32,15 @@ module Fog
             data = service.update_entity(identity, options)
           else
             data = service.create_entity(options)
+            self.identity = data.data[:headers]['X-Object-ID']
           end
+          data = service.get_entity(identity)
+          self.label = data.data[:body]['label']
+          self.metadata = data.data[:body]['metadata']
+          self.ip_addresses = data.data[:body]['ip_addresses']
+          self.agent_id = data.data[:body]['agent_id']
+          self.managed = data.data[:body]['managed']
+          self.uri = data.data[:body]['uri']
           true
         end
 

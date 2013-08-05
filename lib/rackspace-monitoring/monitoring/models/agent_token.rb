@@ -26,7 +26,10 @@ module Fog
             data = service.update_agent_token(identity, options)
           else
             data = service.create_agent_token(options)
+            self.identity = data.data[:headers]['X-Object-ID']
           end
+          data = service.get_agent_token(identity)
+          self.token = data.data[:body]['token']
           true
         end
 
