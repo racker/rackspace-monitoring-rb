@@ -76,12 +76,13 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.24"
   s.summary = "Rackspace Cloud Monitoring Ruby Bindings"
   s.post_install_message = %Q{
-  **** PLEASE NOTE **********************************************************************************************
-  *
-  *  #{s.name} has been deprecated. Please consider using fog (http://github.com/fog/fog) for all new projects. 
+  **** PLEASE NOTE *************************************************************
+  * 
+  *  #{s.name} has been deprecated. Please consider using fog for all new
+  *  projects (http://github.com/fog/fog). The functionality this gem offered is
+  *  available in fog as of version 1.15.0.
   *  
-  +***************************************************************************************************************
-
+  ******************************************************************************
   }
 
   if s.respond_to? :specification_version then
