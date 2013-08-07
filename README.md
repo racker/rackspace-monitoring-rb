@@ -1,5 +1,5 @@
 # New Projects should use [Fog](http://github.com/fog/fog).
-This gem has been deprecated.  Its functionality was merged into the fog gem.
+This gem has been deprecated.  Its functionality will be merged into the fog gem starting with version 1.15.0.
 
 # Rackspace Cloud Monitoring Ruby Bindings
 
