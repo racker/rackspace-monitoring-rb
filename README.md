@@ -1,6 +1,10 @@
 # New Projects should use [Fog](http://github.com/fog/fog).
 This gem has been deprecated.  Its functionality will be merged into the fog gem starting with version 1.15.0.
 
+### Migrating to fog:
+* Update your Gemfile and gemspecs to use `fog` instead of `rackspace-monitoring`.
+* Change the name space of your classes from `Fog::Monitoring::Rackspace` to `Fog::Rackspace::Monitoring`
+
 # Rackspace Cloud Monitoring Ruby Bindings
 
 This project contains the Ruby bindings for the Rackspace Cloud Monitoring product.  It is based off the most awesome Fog cloud services library here - https://github.com/fog/fog.  This library is used heavily in the https://github.com/racker/cookbook-cloudmonitoring chef cookbook.
