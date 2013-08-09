@@ -33,6 +33,11 @@ module Fog
           true
         end
 
+        def destroy
+          requires :id
+          service.delete_agent_token(id)
+        end
+
       end
 
     end

@@ -46,6 +46,7 @@ Gem::Specification.new do |s|
     "lib/rackspace-monitoring/monitoring/requests/create_alarm.rb",
     "lib/rackspace-monitoring/monitoring/requests/create_check.rb",
     "lib/rackspace-monitoring/monitoring/requests/create_entity.rb",
+    "lib/rackspace-monitoring/monitoring/requests/delete_agent_token.rb",
     "lib/rackspace-monitoring/monitoring/requests/delete_check.rb",
     "lib/rackspace-monitoring/monitoring/requests/delete_entity.rb",
     "lib/rackspace-monitoring/monitoring/requests/evaluate_alarm_example.rb",
