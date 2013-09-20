@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dan Di Spaltro"]
-  s.date = "2013-06-22"
+  s.date = "2013-09-20"
   s.description = "Rackspace Cloud Monitoring Ruby Bindings, built on top of fog."
   s.email = "dan.dispaltro@gmail.com"
   s.extra_rdoc_files = [
@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.md",
     "Rakefile",
@@ -73,20 +72,11 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/racker/rackspace-monitoring-rb"
   s.licenses = ["APACHE"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.24"
+  s.rubygems_version = "2.0.3"
   s.summary = "Rackspace Cloud Monitoring Ruby Bindings"
-  s.post_install_message = %Q{
-  **** PLEASE NOTE *************************************************************
-  * 
-  *  #{s.name} has been deprecated. Please consider using fog for all new
-  *  projects (http://github.com/fog/fog). The functionality this gem offered is
-  *  available in fog as of version 1.15.0.
-  *  
-  ******************************************************************************
-  }
 
   if s.respond_to? :specification_version then
-    s.specification_version = 3
+    s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<fog>, [">= 1.11.1"])
