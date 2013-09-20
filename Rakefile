@@ -21,6 +21,15 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Rackspace Cloud Monitoring Ruby Bindings, built on top of fog.}
   gem.email = "dan.dispaltro@gmail.com"
   gem.authors = ["Dan Di Spaltro"]
+  gem.post_install_message = %Q{
+ **** PLEASE NOTE *************************************************************
+ * 
+ *  #{s.name} has been deprecated. Please consider using fog for all new
+ *  projects (http://github.com/fog/fog). The functionality this gem offered is
+ *  available in fog as of version 1.15.0.
+ *  
+ ******************************************************************************
+ }
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
