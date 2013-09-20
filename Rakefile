@@ -24,7 +24,7 @@ Jeweler::Tasks.new do |gem|
   gem.post_install_message = %Q{
  **** PLEASE NOTE *************************************************************
  * 
- *  #{s.name} has been deprecated. Please consider using fog for all new
+ *  #{gem.name} has been deprecated. Please consider using fog for all new
  *  projects (http://github.com/fog/fog). The functionality this gem offered is
  *  available in fog as of version 1.15.0.
  *  
